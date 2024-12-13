@@ -23,6 +23,7 @@ The Makefile in this repository provides few useful targets for common tasks suc
 
 
 1. Running the App on the Dev Machine
+
 This target sets up a virtual environment, installs the required dependencies, and starts the Flask app locally.
 
 ```bash
@@ -32,10 +33,11 @@ make run-dev
 This command will:
 - Create a Python virtual environment in the venv/ directory
 - Install dependencies from requirements.txt
-- Run the app on your local machine, accessible via http://localhost:5000
+- Run the app on your local machine, accessible via `http://localhost:5000`
 
 
 2. Building the Docker Image
+
 This target builds the Docker image using the provided Dockerfile
 
 ```bash
@@ -44,10 +46,10 @@ make build
 
 This command will:
 - Build the Docker image for the app and tag it as latest
-- Use the python:3.10-slim base image and install dependencies from requirements.txt inside the Docker container
 
 
 3. Pushing the Docker Image
+
 This target pushes the built Docker image to the Docker registry (e.g., Docker Hub).
 
 ```bash
@@ -60,6 +62,7 @@ This command will:
 
 
 4. Running the App Inside a Docker Container
+
 This target runs the app in a Docker container, exposing the app on a given port (default `5000`) of the host machine.
 
 ```bash
