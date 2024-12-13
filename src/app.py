@@ -41,7 +41,7 @@ def assignment():
             400,
         )
 
-    arr = data["data"]
+    arr = data["data"]  # test comment
 
     # Validate that the input is a list of numbers
     if not isinstance(arr, list) or not all(
