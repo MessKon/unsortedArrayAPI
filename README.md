@@ -9,12 +9,14 @@ In addition to the application itself, the repository also includes:
 - Terraform scripts for infrastructure setup (like DynamoDB)
 - GitHub Actions workflows for CI/CD
 - Makefile targets for simplifying common tasks
+- Kubernetes manifests for local Minikube deployment
 
 
 ## Features
 - A REST API that listens for POST requests and processes the data
 - Integration with DynamoDB for logging requests (optional)
 - Docker support for easy local development and deployment
+- Kubernetes support for deployment on local clusters - **Assumes minikbe has been installed locally**
 - CI/CD integration via GitHub Actions
 
 
@@ -84,3 +86,38 @@ make build-and-push
 This command will:
 - Build the Docker image
 - Push the image to the Docker registry (e.g., Docker Hub)
+
+
+#### Deploy the App to Minikube
+This target deploys your app to a local Minikube Kubernetes cluster. It will apply all the necessary Kubernetes manifests (namespace, configmap, deployment, service) to the cluster.
+
+```bash
+make deploy-kubernetes
+```
+
+This command will:
+- Build the Docker image
+- Ensure Minikube is started
+- Apply the namespace, configMap, deployment, and service manifests to deploy the app to the Minikube cluster
+
+Once this target has been executed, one can use `kubectl port-forward` to expose the app to a local port as:
+```bash
+kubectl -n dev port-forward service/unsorted-array-app-svc 5000:5000
+```
+
+If on the minikube cluster the app image cannot be downloaded you might have to use:
+```bash
+eval $(minikube -p minikube docker-env)
+```
+
+To clean-up the cluster, simply run:
+```bash
+minikube delete
+```
+
+
+## Suggestions for Improvements
+The repo currently holds a simplistic approach to the implementation.
+A couple of things that could be improved are:
+- Use of `tflocal` for local testing with DynamoDB. More specifically, attempts of using `tflocal` to deploy the DynamoDB and get the app to use it, did not succeed. In order to keep this implementation within a reasonable time-frame, the in-memory-store alternative was implemented
+- Adding a Helm chart to make the app deployable on Kubernetes, using Helm

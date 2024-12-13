@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsorted-array-app
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unsorted-array-app
+  template:
+    metadata:
+      labels:
+        app: unsorted-array-app
+    spec:
+      containers:
+        - name: unsorted-array-app
+          image: messkon/unsorted-array-app:latest
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: unsorted-array-app-config

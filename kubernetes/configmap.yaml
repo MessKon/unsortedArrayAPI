@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: unsorted-array-app-config
+  namespace: dev
+data:
+  USE_DYNAMODB: "false"
